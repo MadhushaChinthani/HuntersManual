@@ -1,17 +1,17 @@
-import {SafeAreaView, ScrollView, StyleSheet, Text, Button} from "react-native";
+import {SafeAreaView, ScrollView, StyleSheet, Text, Pressable} from "react-native";
 
 export default function Categories({navigation}){
+    const categories = ['Ailments', 'Armor', 'Armor Sets', 'Charms', 'Decorations', 'Events', 'Itmes', 'Locations', 'Monsters', 'Skills', 'Weapons']
     return(
         <SafeAreaView style={styles.container}>
-            <ScrollView>
-                <Text style={styles.text}>Categories</Text>
-                <Button
-                    title="Monsters"
-                    color={'#007AFF'}
-                    onPress={() => {
-                        navigation.navigate('Monsters')
-                    }}
-                />
+            <Text style={styles.title}>Categories</Text>
+            <ScrollView contentContainerStyle={styles.categoryContainer}>
+                {
+                    categories.map(category => 
+                        <Pressable style={styles.categoryButton} key={category}>
+                            <Text style={styles.categoryText}>{category}</Text>
+                        </Pressable> )
+                }
             </ScrollView>
         </SafeAreaView>
     )
@@ -24,8 +24,28 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    text: {
+    title: {
         color: '#777',
-        fontSize: 20,
+        fontSize: 35,
+        marginBottom: 35,
+    },
+    categoryContainer: {
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        flexWrap: 'wrap',
+        width:'90%',
+
+    },
+    categoryButton: {
+        backgroundColor: '#550bcb',
+        borderRadius: 10,
+        borderWidth: 3,
+        paddingVertical: 10,
+        paddingHorizontal: 8,
+        marginBottom:8,
+    },
+    categoryText: {
+        color: '#dac32b',
+        fontSize: 25,
     }
 });
