@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from "./src/Screens/HomeScreen";
 import Categories from './src/Screens/Categories';
+import CategoryEntry from './src/Screens/CategoryEntry';
 
 const Drawer = createDrawerNavigator()
 
@@ -13,6 +14,7 @@ export default function App() {
         <Drawer.Navigator>
           <Drawer.Screen name="Home" component={HomeScreen} />
           <Drawer.Screen name="Categories" component={Categories} />
+          <Drawer.Screen name="CategoryEntry" component={CategoryEntry} />
         </Drawer.Navigator>
       </NavigationContainer>
   );

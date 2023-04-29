@@ -1,6 +1,6 @@
 import {SafeAreaView, ScrollView, StyleSheet, Text, Pressable} from "react-native";
 import { useState } from "react";
-import getCategoryData from "../Components/Tools";
+import {getCategoryData} from "../Components/Tools";
 
 export default function Categories({navigation}){
     const [currentCategory, setCategory] = useState('')
@@ -29,7 +29,7 @@ export default function Categories({navigation}){
                     {
                         subCategories != undefined ?
                         subCategories.map(subCategory => 
-                        <Pressable style={styles.categoryButton} key={subCategory.id} onPress={() => console.log('PRESSED')}>
+                        <Pressable style={styles.categoryButton} key={subCategory.id} onPress={() => navigation.navigate('CategoryEntry', {category: currentCategory, id: subCategory.id})}>
                                 <Text style={styles.categoryText}>{subCategory.name}</Text>
                         </Pressable>)
                         :
@@ -39,8 +39,8 @@ export default function Categories({navigation}){
                         
                     }
                     <Pressable style={styles.categoryButton} onPress={() => {setCategory(''); setSubCategories([])}}>
-                                <Text style={styles.categoryText}>RESET CATEGORY</Text>
-                        </Pressable>
+                            <Text style={styles.categoryText}>RESET CATEGORY</Text>
+                    </Pressable>
                 </ScrollView>
             }
         </SafeAreaView>
