@@ -17,7 +17,7 @@ export function getEntryData(category, id, setter): any {
             return {id:0, name:'DIDNT WORK'}})
 }
 
-function generateList(value, key, navigation){
+function generateListArr(value, key, navigation){
     const capKey = key.charAt(0).toUpperCase() + key.slice(1)
     return(
         <View>
@@ -44,28 +44,82 @@ function generateList(value, key, navigation){
     )
 }
 
+export  function ArmorSetLister(armorSet, navigation){
+    let setList;
+    axios.get(`https://mhw-db.com/armor/sets/${armorSet.id}`).then(resp => setList = resp.data)
+    console.log(setList)
+    if(armorSet.pieces.length > 0 ){
+        return(
+            <View>
+                <Text>{armorSet.name}</Text>
+                <Text>Rank: {armorSet.rank}</Text>
+                {}
+            </View>
+        )
+    }
+    
+    return(<Text>No Set</Text>)
+}
+
 export function getEntryDisplay(category, entry, style, navigation): any {
     switch(category) {
-        case 'ailments':
+        case 'ailments': // ********* AILMENTS *************************** AILMENTS *****************
             return (
             <View>
                 <Text>{entry.name}</Text>
                 <Text>{entry.description}</Text>
                 <View>
                     <Text>Recovery:</Text>
-                    { generateList(entry.recovery.actions, 'actions', navigation) }
-                    { generateList(entry.recovery.items, 'items', navigation) }
+                    { generateListArr(entry.recovery.actions, 'actions', navigation) }
+                    { generateListArr(entry.recovery.items, 'items', navigation) }
                 </View>
                 <View>
                     <Text>Protection</Text>
-                    { generateList(entry.protection.items, 'items', navigation) }
-                    { generateList(entry.protection.skills, 'skills', navigation) }
+                    { generateListArr(entry.protection.items, 'items', navigation) }
+                    { generateListArr(entry.protection.skills, 'skills', navigation) }
                 </View>
             </View>)
-        case 'armor':
+
+        case 'armor': // ********* ARMOR *************************** ARMOR *****************
             return (
-            <View>
+                <View>
                 <Text>{entry.name}</Text>
+                <Text>Armor Type: {entry.type}</Text>
+                <Text>Rank: {entry.rank}</Text>
+                <Text>Rarity: {entry.rarity}</Text>
+                <View>
+                    <Text>Defense</Text>
+                    <Text>Base: {entry.defense['base']}</Text>
+                    <Text>Max: {entry.defense.max}</Text>
+                    <Text>Augmented: {entry.defense.augmented}</Text>
+                </View>
+                <View>
+                    <Text>Resistances</Text>
+                    <Text>Fire: {entry.resistances.fire}</Text>
+                    <Text>Water: {entry.resistances.water}</Text>
+                    <Text>Ice: {entry.resistances.ice}</Text>
+                    <Text>Thunder: {entry.resistances.thunder}</Text>
+                    <Text>Dragon: {entry.resistances.dragon}</Text>
+                </View>
+                <View>
+                    <Text>Slots</Text>
+                    {   entry.slots.length > 0 ? 
+
+                        entry.slots.map((slot, index) => {
+                            <Text key={index}>Rank {slot.rank}</Text>
+                        })
+                        :
+                        <Text>No slots for this armor</Text>
+                    }
+                </View>
+                <View>
+                    <Text>Armor Set</Text>
+                    {  ArmorSetLister(entry.armorSet, navigation) }
+                </View>
+                <View>
+                    { generateListArr(entry.skills, 'skills', navigation) }
+                </View>
+                
             </View>)
         case 'charms':
             return (
