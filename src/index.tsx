@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
+import { Home } from './features/home/Home';
 
 
 export const App = () => {
   return (
-    <View style={styles.container}>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Home />
+    </SafeAreaView>
   );
 };
 
